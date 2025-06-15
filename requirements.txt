@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+tensorflow
+firebase-admin
+scikit-learn
+joblib
+python-dotenv

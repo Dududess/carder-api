@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+*.db
+*.log
+.env
+firebase-adminsdk.json
+.git/
+.gitignore
+.DS_Store
+.vscode/
+*.h5
+*.pkl
