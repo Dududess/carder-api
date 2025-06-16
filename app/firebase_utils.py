@@ -1,10 +1,11 @@
 import firebase_admin
 from firebase_admin import credentials, firestore
 import os
+import json
 
-# Charge les credentials Firebase à partir d’un fichier local
-cred_path = "app/firebase-adminsdk.json"
-cred = credentials.Certificate(cred_path)
+firebase_key = os.environ["GOOGLE_APPLICATION_CREDENTIALS"]
+firebase_key_dict = json.loads(firebase_key)
+cred = credentials.Certificate(firebase_key_dict)
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()

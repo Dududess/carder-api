@@ -1,25 +1,24 @@
 # Dockerfile pour API FastAPI + modèle TensorFlow
 
-# 1. Base image officielle Python
-FROM python:3.12-slim
+# Étape 1 : base image légère avec Python
+FROM python:3.11-slim
 
-# 2. Dossier de travail
+# Étape 2 : définir le répertoire de travail
 WORKDIR /app
 
-# 3. Copie des fichiers de l'application
-COPY . /app
-
-# 4. Variables d'environnement
-ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1
-
-# 5. Installation des dépendances
+# Étape 3 : copier les fichiers requirements
 COPY requirements.txt .
+
+# Étape 4 : installer les dépendances
 RUN pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir -r requirements.txt
 
-# 6. Port exposé par Uvicorn
+# Étape 5 : copier le code de l'application
+COPY . .
+
+# Étape 6 : exposer le port 8080 pour Cloud Run
 EXPOSE 8080
 
-# 7. Commande de lancement (serveur ASGI avec hot reload désactivé)
+# Étape 7 : définir la commande de démarrage
+# uvicorn doit écouter sur 0.0.0.0:8080 (exigé par Cloud Run)
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
